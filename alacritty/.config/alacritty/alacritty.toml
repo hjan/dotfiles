@@ -1,0 +1,14 @@
+[general]
+    import = [
+        "~/.config/alacritty/themes/themes/github_dark.toml"
+    ]
+[window.dimensions]
+    columns = 110
+    lines = 30
+[colors.primary]
+    background = "#2e3436"
+[font]
+    size = 9
+[font.normal]
+    family = "DejaVu Sans Mono"
+    style = "Regular"
