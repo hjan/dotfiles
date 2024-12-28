@@ -1,4 +1,3 @@
-
 HOME = os.getenv("HOME")
 
 vim.g.mapleader = " "
@@ -37,14 +36,15 @@ local function range(from, to)
     return t
 end
 vim.opt.colorcolumn = range(81, 335)
-vim.api.nvim_create_autocmd({"ColorScheme", "VimEnter"}, {
+vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
     group = vim.api.nvim_create_augroup('Color', {}),
     pattern = "*",
-    callback = function ()
+    callback = function()
         vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#2c2d27" })
-        vim.api.nvim_set_hl(0, "WhiteSpace", { bg = "None", fg = "#838383"})
+        vim.api.nvim_set_hl(0, "WhiteSpace", { bg = "None", fg = "#838383" })
         vim.api.nvim_set_hl(0, "CursorLine", { bg = "#2c2d27" })
         vim.api.nvim_set_hl(0, "String", { fg = "#ffffaf" })
+        vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
     end
 })
 
@@ -92,3 +92,20 @@ vim.cmd('colorscheme xoria256')
 --vim.opt.isfname = ("@-@")
 vim.opt.updatetime = 50
 
+vim.keymap.set("n", "<space>to", function()
+    vim.cmd.vnew()
+    vim.cmd.term()
+    vim.cmd.wincmd("J")
+    vim.api.nvim_win_set_height(0, 15)
+end)
+
+vim.api.nvim_create_autocmd("TermOpen", {
+    group = vim.api.nvim_create_augroup("custom-term-open", { clear = true }),
+    pattern = "*",
+    callback = function()
+        vim.opt.number = false
+        vim.opt.relativenumber = false
+        -- Always start in Insert mode
+        vim.cmd("startinsert")
+    end,
+})
