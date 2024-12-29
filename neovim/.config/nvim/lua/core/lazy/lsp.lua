@@ -9,6 +9,14 @@ return {
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
         "j-hui/fidget.nvim",
+        {
+            "folke/lazydev.nvim",
+            opts = {
+                library = {
+                    { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+                },
+            },
+        },
     },
 
     config = function()
@@ -30,18 +38,7 @@ return {
             'pyright',
         }
         for _, lsp in ipairs(servers) do
-            if lsp == "lua_ls" then
-                lspconfig[lsp].setup {
-                    capabilities = capabilities,
-                    settings = {
-                        Lua = {
-                            diagnostics = {
-                                globals = { "vim" }
-                            }
-                        }
-                    }
-                }
-            elseif lsp == "perlpls" then
+            if lsp == "perlpls" then
                 lspconfig[lsp].setup {
                     capabilities = capabilities,
                     settings = {
